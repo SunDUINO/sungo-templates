@@ -1,0 +1,30 @@
+/**
+        * @file launch.json
+        * @description SunGo Project Manager - Konfiguracja debuggera i uruchamiania.
+        * Definiuje profile dla trybu deweloperskiego (Debug) oraz optymalizowanego (Release).
+        * * @project test
+        * @author SunRiver-LotharTeaM (Andrzej Gromczyński)
+        * @version 0.2.8
+        */
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/src",
+            "output": "${workspaceFolder}/bin/_debug_test.exe"
+        },
+        {
+            "name": "Release",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/src",
+            "output": "${workspaceFolder}/bin/test.exe"
+        }
+    ]
+}
