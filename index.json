@@ -1,23 +1,30 @@
 [
   {
-    "id": "console-cli",
-    "name": "Console CLI (Advanced)",
-    "desc": "CLI with flags, logger and config",
-    "icon": "🖥️",
-    "tags": ["cli", "flags", "logger"]
+    "id":    "console-cli",
+    "name":  "Console CLI",
+    "desc":  "CLI app with flags, colored output and logger. Ready to extend.",
+    "icon":  "🖥️",
+    "tags":  ["cli", "flags", "logger", "console"]
   },
   {
-    "id": "raylib-3d",
-    "name": "Raylib 3D Scene",
-    "desc": "3D starter with camera and basic shapes",
-    "icon": "🎮",
-    "tags": ["game", "raylib", "3d"]
+    "id":    "raylib-3d",
+    "name":  "Raylib 3D Scene",
+    "desc":  "3D scene with orbital camera, lighting and basic shapes. Raylib + Go.",
+    "icon":  "🎮",
+    "tags":  ["game", "raylib", "3d", "camera"]
   },
   {
-    "id": "gin-rest",
-    "name": "Gin REST API",
-    "desc": "REST API with Gin, CORS and middleware",
-    "icon": "🌐",
-    "tags": ["server", "gin", "rest", "api"]
+    "id":    "gin-rest",
+    "name":  "Gin REST API",
+    "desc":  "REST API with Gin: CORS, middleware, health check and JSON responses.",
+    "icon":  "🌐",
+    "tags":  ["server", "gin", "rest", "api", "cors"]
+  },
+  {
+    "id":    "fyne-app",
+    "name":  "Fyne Desktop App",
+    "desc":  "Cross-platform desktop app with Fyne: toolbar, tabs and theme support.",
+    "icon":  "🪟",
+    "tags":  ["desktop", "fyne", "gui", "cross-platform"]
   }
 ]
