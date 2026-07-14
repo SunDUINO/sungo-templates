@@ -26,7 +26,7 @@
     "desc":  "Cross-platform desktop app with Fyne: toolbar, tabs and theme support.",
     "icon":  "🪟",
     "tags":  ["desktop", "fyne", "gui", "cross-platform"]
-  }
+  },
   {
     "id":    "go-rest-webui",
     "name":  "Go REST WebUI",
