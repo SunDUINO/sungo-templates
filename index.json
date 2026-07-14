@@ -27,4 +27,11 @@
     "icon":  "🪟",
     "tags":  ["desktop", "fyne", "gui", "cross-platform"]
   }
+  {
+    "id":    "go-rest-webui",
+    "name":  "Go REST WebUI",
+    "desc":  "REST microservice with embedded dark-themed dashboard. Items CRUD, live status, no frontend framework.",
+    "icon":  "📊",
+    "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"]
+  }
 ]
