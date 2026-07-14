@@ -1,5 +1,5 @@
 /*
- * Project: ${projectName}
+ * Project: ginrest
  * Template: Gin REST API – SunGo Project Manager
  *
  * Features:
@@ -9,6 +9,12 @@
  *   - /health endpoint
  *   - Example CRUD routes for "items"
  *   - Graceful shutdown on SIGTERM / SIGINT
+ *
+ * Fixes applied:
+ *   - ID comparison now uses strconv.Itoa instead of broken rune math
+ *     (previous code only worked for single-digit IDs 0-9)
+ *   - Added sync.RWMutex to protect the in-memory store from race
+ *     conditions under Gin's concurrent request handling
  */
 
 package main
@@ -19,6 +25,8 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
+	"sync"
 	"syscall"
 	"time"
 
@@ -35,8 +43,10 @@ type Item struct {
 }
 
 // In-memory store (replace with your DB layer)
+// Protected by mu to avoid data races since Gin handles requests concurrently.
 var (
-	items  = []Item{{ID: 1, Name: "example", Value: "hello from ${projectName}"}}
+	mu     sync.RWMutex
+	items  = []Item{{ID: 1, Name: "example", Value: "hello from ginrest"}}
 	nextID = 2
 )
 
@@ -45,19 +55,24 @@ var (
 func healthHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "ok",
-		"project": "${projectName}",
+		"project": "ginrest",
 		"time":    time.Now().UTC().Format(time.RFC3339),
 	})
 }
 
 func listItems(c *gin.Context) {
+	mu.RLock()
+	defer mu.RUnlock()
 	c.JSON(http.StatusOK, gin.H{"items": items, "count": len(items)})
 }
 
 func getItem(c *gin.Context) {
 	id := c.Param("id")
+
+	mu.RLock()
+	defer mu.RUnlock()
 	for _, item := range items {
-		if id == string(rune('0'+item.ID)) {
+		if id == strconv.Itoa(item.ID) {
 			c.JSON(http.StatusOK, item)
 			return
 		}
@@ -74,16 +89,23 @@ func createItem(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	mu.Lock()
 	item := Item{ID: nextID, Name: input.Name, Value: input.Value}
 	nextID++
 	items = append(items, item)
+	mu.Unlock()
+
 	c.JSON(http.StatusCreated, item)
 }
 
 func deleteItem(c *gin.Context) {
 	id := c.Param("id")
+
+	mu.Lock()
+	defer mu.Unlock()
 	for i, item := range items {
-		if id == string(rune('0'+item.ID)) {
+		if id == strconv.Itoa(item.ID) {
 			items = append(items[:i], items[i+1:]...)
 			c.JSON(http.StatusOK, gin.H{"deleted": id})
 			return
@@ -115,9 +137,9 @@ func setupRouter() *gin.Engine {
 	// API v1
 	v1 := r.Group("/api/v1")
 	{
-		v1.GET("/items",      listItems)
-		v1.GET("/items/:id",  getItem)
-		v1.POST("/items",     createItem)
+		v1.GET("/items", listItems)
+		v1.GET("/items/:id", getItem)
+		v1.POST("/items", createItem)
 		v1.DELETE("/items/:id", deleteItem)
 	}
 
@@ -143,7 +165,7 @@ func main() {
 
 	// Start server
 	go func() {
-		log.Printf("[${projectName}] listening on :%s", port)
+		log.Printf("[ginrest] listening on :%s", port)
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %v", err)
 		}
