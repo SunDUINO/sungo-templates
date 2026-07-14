@@ -29,7 +29,7 @@
   },
   {
     "id":    "go-rest-webui",
-    "name":  "Go REST WebUI",
+    "name":  "Go_REST_webUI",
     "desc":  "REST microservice with embedded dark-themed dashboard. Items CRUD, live status, no frontend framework.",
     "icon":  "📊",
     "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"]
