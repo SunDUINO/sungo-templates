@@ -32,7 +32,6 @@
   "name":  "Go REST WebUI",
   "desc":  "REST microservice with embedded dark-themed dashboard. Items CRUD, live status, no frontend framework.",
   "icon":  "📊",
-  "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"],
-  "subdir": "Go_Rest_webui"
+  "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"]
 }
 ]
