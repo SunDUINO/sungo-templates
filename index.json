@@ -28,10 +28,11 @@
     "tags":  ["desktop", "fyne", "gui", "cross-platform"]
   },
   {
-    "id":    "go-rest-webui",
-    "name":  "Go_REST_webUI",
-    "desc":  "REST microservice with embedded dark-themed dashboard. Items CRUD, live status, no frontend framework.",
-    "icon":  "📊",
-    "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"]
-  }
+  "id":    "go-rest-webui",
+  "name":  "Go REST WebUI",
+  "desc":  "REST microservice with embedded dark-themed dashboard. Items CRUD, live status, no frontend framework.",
+  "icon":  "📊",
+  "tags":  ["server", "rest", "api", "webui", "dashboard", "embed"],
+  "subdir": "Go_Rest_webui"
+}
 ]
